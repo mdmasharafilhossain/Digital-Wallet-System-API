@@ -24,11 +24,11 @@ interface EnvConfig {
 const loadEnvVariables = (): EnvConfig => {
     const requiredEnvVariables: string[] = ["PORT", "DB_URL", "NODE_ENV", "BCRYPT_SALT_ROUND", "JWT_ACCESS_EXPIRES", "JWT_ACCESS_SECRET", "SUPER_ADMIN_EMAIL", "SUPER_ADMIN_PASSWORD", "JWT_REFRESH_SECRET", "JWT_REFRESH_EXPIRES", "GOOGLE_CLIENT_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CALLBACK_URL", "EXPRESS_SESSION_SECRET", "FRONTEND_URL"];
 
-    requiredEnvVariables.forEach(key => {
-        if (!process.env[key]) {
-            throw new Error(`Missing require environment variabl ${key}`)
-        }
-    })
+    // requiredEnvVariables.forEach(key => {
+    //     if (!process.env[key]) {
+    //         throw new Error(`Missing require environment variabl ${key}`)
+    //     }
+    // })
 
     return {
         PORT: process.env.PORT as string,
