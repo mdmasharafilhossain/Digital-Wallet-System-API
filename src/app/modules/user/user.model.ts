@@ -1,6 +1,7 @@
 import {  Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import { IUser } from "./user.interface";
+import { envVars } from "../../config/env";
 
 
 
@@ -26,7 +27,7 @@ const userSchema = new Schema<IUser>({
 userSchema.pre("save", async function(next) {
   if (!this.isModified("password")) return next();
   
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(Number(envVars.BCRYPT_SALT_ROUND));
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
