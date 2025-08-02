@@ -11,3 +11,16 @@ export const loginSchema = z.object({
   phone: z.string(),
   password: z.string()
 });
+
+// Explicitly define the types
+export interface RegisterInput  {
+  name: string;
+  phone: string;
+  password: string;
+  role?: "user" | "agent";
+};
+
+export interface LoginInput {
+  phone: string;
+  password: string;
+};
