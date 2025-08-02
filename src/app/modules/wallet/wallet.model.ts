@@ -1,9 +1,12 @@
-import mongoose from 'mongoose';
+import { Schema, model, } from "mongoose";
+import { IWallet } from "./wallet.interface";
 
-const walletSchema = new mongoose.Schema({
+
+
+const walletSchema = new Schema<IWallet>({
   user: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User', 
+    type: Schema.Types.ObjectId, 
+    ref: "User", 
     required: true,
     unique: true 
   },
@@ -11,4 +14,4 @@ const walletSchema = new mongoose.Schema({
   isBlocked: { type: Boolean, default: false }
 });
 
-export default mongoose.model('Wallet', walletSchema);
+export const Wallet = model<IWallet>("Wallet", walletSchema);
