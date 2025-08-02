@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
@@ -11,6 +12,7 @@ import { Wallet } from "../modules/wallet/wallet.model";
 declare global {
   namespace Express {
     interface Request {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       user?: any;
     }
   }
@@ -35,8 +37,8 @@ export const verifyToken = async (
   if (!token) return next(new AppError(401, "Not authenticated"));
 
   try {
-    const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { id: string };
-    const user = await User.findById(decoded.id).select("+role");
+    const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { _id: string };
+    const user = await User.findById(decoded._id).select("+role");
     
     if (!user) return next(new AppError(401, "User no longer exists"));
     if (!user.isActive) return next(new AppError(403, "Account suspended"));
@@ -62,7 +64,7 @@ export const checkWalletStatus = async (
   res: Response,
   next: NextFunction
 ) => {
-  const wallet = await Wallet.findOne({ user: req.user.id });
+  const wallet = await Wallet.findOne({ user: req.user._id });
   if (wallet?.isBlocked) {
     return next(new AppError(403, "Wallet is blocked"));
   }
