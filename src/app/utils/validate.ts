@@ -7,18 +7,22 @@ import { AppError } from "./appError";
 export const validate = (schema: ZodTypeAny) => 
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-      });
+      // console.log("Incoming req.body:", req.body);
+      schema.parse(req.body); 
       next();
     } catch (error: any) {
-      const errors = error.issues.map((err: any) => ({
+      const errors = error.issues?.map((err: any) => ({
         path: err.path.join('.'),
         message: err.message,
-      }));
-     
-      next(new AppError(400, `Validation failed: ${errors.map((e: any) => e.message).join(', ')}`));
+      })) || [];
+
+      // console.error("Validation failed:", errors);
+      
+      next(
+        new AppError(
+          400,
+          `Validation failed: ${errors.map((e: any) => `${e.path}: ${e.message}`).join(', ')}`
+        )
+      );
     }
   };

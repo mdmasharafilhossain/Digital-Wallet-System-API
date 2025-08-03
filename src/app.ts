@@ -2,26 +2,17 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import  authRouter from './app/modules/auth/auth.routes';
+import authRouter from './app/modules/auth/auth.routes';
 import { errorHandler } from './app/middlewares/globalErrorHandler';
-
-
 
 dotenv.config();
 
 const app = express();
 
-// Middleware setup
+// Global Middlewares
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-// Routes
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
-// if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/auth", authRouter);
@@ -29,7 +20,10 @@ app.use("/api/v1/auth", authRouter);
 // app.use("/api/v1/transactions", transactionRouter);
 // app.use("/api/v1/admin", adminRouter);
 
-// Basic route
+// Health check route
 app.get('/', (req, res) => res.send('Digital Wallet API is running'));
+
+// Global error handler
 app.use(errorHandler);
+
 export default app;
