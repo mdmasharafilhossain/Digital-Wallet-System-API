@@ -14,7 +14,7 @@ export const validate = (schema: ZodTypeAny) =>
       });
       next();
     } catch (error: any) {
-      const errors = error.errors.map((err: any) => ({
+      const errors = error.issues.map((err: any) => ({
         path: err.path.join('.'),
         message: err.message,
       }));
