@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../utils/appError";
 import * as authService from "./auth.service";
@@ -17,7 +18,6 @@ export const register = async (
       status: "success",
       data: { user }
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     next(new AppError(400, err.message));
   }
@@ -42,7 +42,6 @@ export const login = async (
       status: "success",
       data: { token, user }
     });
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     next(new AppError(401, err.message));
   }
