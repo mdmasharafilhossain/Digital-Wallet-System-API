@@ -31,7 +31,7 @@ export const registerUser = async (userData: RegisterInput) => {
   const user = await User.create({ name, phone, password, role });
 
   
-  await Wallet.create({ user: user._id, balance: 50 });
+  await Wallet.create({ user: user, balance: 50 });
 
   return user;
 };
