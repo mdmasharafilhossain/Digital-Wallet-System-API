@@ -16,7 +16,7 @@ The **Digital Wallet API** is a secure, modular, and role-based backend system f
 
 ### Wallet Management
 - Automatic wallet creation on registration
-- nitial balance of **৳50**
+- Initial balance of **৳50**
 - Admin can block/unblock wallets
 - Balance inquiry & transaction history for all roles
 
@@ -26,7 +26,7 @@ The **Digital Wallet API** is a secure, modular, and role-based backend system f
 - **Users** can send money to other users
 - **Agents** can cash-in to user wallets
 - **Agents** can cash-out from user wallets
-- **Admins** can reverse transactions
+- **Admins** can see all transactions
 
 ### Admin Features
 - View all users, agents, wallets, and transactions
@@ -109,24 +109,26 @@ The **Digital Wallet API** is a secure, modular, and role-based backend system f
 - MongoDB (local or Atlas)
 - npm
 
-### 🔧 Installation
+### Installation
 
 ```bash
-git clone https://github.com/yourusername/digital-wallet-api.git
+git clone https://github.com/mdmasharafilhossain/Digital-Wallet-System-API.git
 cd digital-wallet-api
 npm install
 ```
 
 Create a .env file using the template and edit .env:
 ```bash
-MONGO_URI=your_mongoDB_url
-JWT_SECRET=your_strong_secret_here
-JWT_EXPIRES=90d
+DB_URL=your_mongoDB_url
+NODE_ENV=development | production
+BCRYPT_SALT_ROUND=any_number
+JWT_ACCESS_SECRET=your_jwt_secret
+JWT_ACCESS_EXPIRES=time
 PORT=5000
 
 # do not chnage admin phone and password, just login 
-ADMIN_PHONE=01700000000
-ADMIN_PASSWORD=secureAdminPassword123!
+ADMIN_PHONE=01345678901
+ADMIN_PASSWORD=admin1234
 ```
 
 Run the Project
