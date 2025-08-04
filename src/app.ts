@@ -10,7 +10,7 @@ import authRouter from "./app/modules/auth/auth.routes";
 import transactionRouter from "./app/modules/transaction/transaction.routes";
 
 
-const app = express();
+ const app = express();
 
 // Middlewares
 app.use(cors());
