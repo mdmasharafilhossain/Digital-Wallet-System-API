@@ -33,13 +33,14 @@ export const verifyToken = async (
   } else if (req.cookies?.token) {
     token = req.cookies.token;
   }
-
+console.log("🔐 Auth Header:", req.headers.authorization);
+console.log("🍪 Cookie Token:", req.cookies?.token);
   if (!token) return next(new AppError(401, "Not authenticated"));
 
   try {
-    const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { _id: string };
-    const user = await User.findById(decoded._id).select("+role");
-    
+    const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { id: string };
+    const user = await User.findById(decoded.id).select("+role");
+    console.log("✅ Decoded token:", decoded);
     if (!user) return next(new AppError(401, "User no longer exists"));
     if (!user.isActive) return next(new AppError(403, "Account suspended"));
 
