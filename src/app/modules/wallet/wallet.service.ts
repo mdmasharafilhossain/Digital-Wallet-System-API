@@ -146,6 +146,37 @@ export const cashOut = async (
   }
 };
 
+
+export const withdrawMoney = async (
+  userId: mongoose.Types.ObjectId,
+  amount: number
+) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  
+  try {
+    
+    const wallet = await updateBalance(userId, -amount, session);
+    
+    
+    await Transaction.create([{
+      type: "withdraw",
+      amount,
+      from: userId,
+      to: userId, 
+      status: "completed"
+    }], { session });
+    
+    await session.commitTransaction();
+    return wallet;
+  } catch (err) {
+    await session.abortTransaction();
+    throw err;
+  } finally {
+    session.endSession();
+  }
+};
+
 export const getWallet = async (userId: mongoose.Types.ObjectId) => {
   return Wallet.findOne({ user: userId }).populate("user");
 };

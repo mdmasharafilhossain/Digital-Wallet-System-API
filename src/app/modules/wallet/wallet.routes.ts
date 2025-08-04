@@ -3,7 +3,7 @@ import * as walletController from "./wallet.controller";
 import { checkWalletStatus, restrictTo, verifyToken } from "../../middlewares/checkAuth";
 import { validate } from "../../utils/validate";
 
-import { addMoneySchema, cashInOutSchema, sendMoneySchema } from "./wallet.schema";
+import { addMoneySchema, cashInOutSchema, sendMoneySchema, withdrawSchema } from "./wallet.schema";
 
 
 const router = express.Router();
@@ -12,6 +12,12 @@ router.use(verifyToken, checkWalletStatus);
 
 router.post("/add-money", validate(addMoneySchema) ,restrictTo("user"), walletController.addMoney);
 router.post("/send-money",validate(sendMoneySchema) , restrictTo("user"), walletController.sendMoney);
+router.post(
+  "/withdraw", 
+  validate(withdrawSchema), 
+  restrictTo("user"), 
+  walletController.withdrawMoney
+);
 router.get("/me", walletController.getWallet);
 
 router.post("/cash-in",validate(cashInOutSchema) , restrictTo("agent"), walletController.cashIn);

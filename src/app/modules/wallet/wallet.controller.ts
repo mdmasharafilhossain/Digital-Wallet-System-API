@@ -3,7 +3,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../utils/appError";
 import * as walletService from "./wallet.service";
-import { addMoneySchema, cashInOutSchema, sendMoneySchema } from "./wallet.schema";
+import { addMoneySchema, cashInOutSchema, sendMoneySchema, withdrawSchema } from "./wallet.schema";
 import mongoose from "mongoose";
 
 
@@ -90,7 +90,30 @@ export const cashOut = async (
     next(err);
   }
 };
-
+export const withdrawMoney = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+     const { amount } = withdrawSchema.parse(req.body);;
+    const wallet = await walletService.withdrawMoney(req.user._id, amount);
+    
+    res.status(200).json({
+      status: "success",
+      message: "Withdrawal successful",
+      data: { 
+        newBalance: wallet.balance,
+        transactionId: wallet._id
+      }
+    });
+  } catch (err: any) {
+    if (err.message.includes("Insufficient funds")) {
+      return next(new AppError(400, "Insufficient balance for withdrawal"));
+    }
+    next(err);
+  }
+};
 export const getWallet = async (
   req: Request,
   res: Response,

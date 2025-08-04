@@ -19,3 +19,7 @@ export const cashInOutSchema = z.object({
     .length(24, "User ID must be a 24-character MongoDB ObjectId"),
   amount: z.number().min(1, "Amount must be at least 1"),
 });
+
+export const withdrawSchema = z.object({
+ amount: z.number().min(1, "Amount must be at least 1"),
+});
