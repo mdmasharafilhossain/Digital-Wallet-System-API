@@ -6,7 +6,7 @@ import { Wallet } from "./wallet.model";
 import { Transaction } from "../transaction/transaction.model";
 import { User } from "../user/user.model";
 
-const COMMISSION_RATE = 0.01; // 1% commission
+const COMMISSION_RATE = 0.01; 
 
 const updateBalance = async (
   userId: mongoose.Types.ObjectId,
