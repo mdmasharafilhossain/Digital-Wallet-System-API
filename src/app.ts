@@ -13,7 +13,12 @@ import transactionRouter from "./app/modules/transaction/transaction.routes";
  const app = express();
 
 // Middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: ['http://localhost:5173', 'https://library-management-sigma-nine.vercel.app/', 'https://library-management-sigma-nine.vercel.app']
+   })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
