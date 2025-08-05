@@ -32,7 +32,7 @@ The **Digital Wallet API** is a secure, modular, and role-based backend system f
 - View all users, agents, wallets, and transactions
 - Block or unblock user wallets
 - Approve or suspend agents
-- Adjust wallet balances
+
 
 
 ---
