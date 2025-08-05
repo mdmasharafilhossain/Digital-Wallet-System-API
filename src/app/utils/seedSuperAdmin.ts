@@ -1,9 +1,9 @@
+/* eslint-disable no-console */
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
-import httpStatus from "http-status-codes";
+
 import { envVars } from "../config/env";
 import { User } from "../modules/user/user.model";
-import { AppError } from "./appError";
+
 import { Wallet } from "../modules/wallet/wallet.model";
 
 export const seedSuperAdmin = async () => {
