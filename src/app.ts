@@ -15,7 +15,7 @@ import transactionRouter from "./app/modules/transaction/transaction.routes";
 // Middlewares
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://library-management-sigma-nine.vercel.app/', 'https://library-management-sigma-nine.vercel.app']
+    origin: ['http://localhost:5173', 'https://wallet-management-system-server.vercel.app/', 'https://wallet-management-system-server.vercel.app']
    })
 );
 
