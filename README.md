@@ -95,10 +95,6 @@ The **Digital Wallet API** is a secure, modular, and role-based backend system f
 | `/api/v1/admin/wallets`                       | GET    | Get all wallets                        | Admin  |
 | `/api/v1/admin/wallets/:id/block`             | PATCH  | Block/unblock a wallet(Toggle)                 | Admin  |
 | `/api/v1/admin/agents/:id/approve`            | PATCH  | Approve/suspend an agent(Toggle)                | Admin  |
-| `/api/v1/admin/transactions`                  | GET    | Get filtered transactions              | Admin  |
-| `/api/v1/admin/transactions/:id`              | GET    | Get transaction by ID                  | Admin  |
-| `/api/v1/admin/transactions/:id/reverse`      | POST   | Reverse a transaction                  | Admin  |
-| `/api/v1/admin/wallets/adjust-balance`        | POST   | Adjust balance for any wallet          | Admin  |
 
 ---
 
