@@ -120,7 +120,7 @@ npm install
 Create a .env file using the template and edit .env:
 ```bash
 DB_URL=your_mongoDB_url
-NODE_ENV=development | production
+NODE_ENV=development
 BCRYPT_SALT_ROUND=any_number
 JWT_ACCESS_SECRET=your_jwt_secret
 JWT_ACCESS_EXPIRES=time
