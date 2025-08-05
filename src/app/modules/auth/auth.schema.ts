@@ -12,7 +12,7 @@ export const registerSchema = z.object({
       "Password must include uppercase, lowercase, number, and special character"
     )
     .trim(),
-  role: z.enum(["user", "agent","admin"]).default("user")
+  role: z.enum(["user","agent","admin"]).default("user")
 });
 
 export const loginSchema = z.object({
@@ -25,7 +25,7 @@ export interface RegisterInput  {
   name: string;
   phone: string;
   password: string;
-  role?: "user" | "agent";
+  role?: "user" | "agent" | "admin";
 };
 
 export interface LoginInput {

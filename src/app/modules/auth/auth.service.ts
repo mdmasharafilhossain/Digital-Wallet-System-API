@@ -22,7 +22,7 @@ export const registerUser = async (userData: RegisterInput) => {
  
 
 
-  const allowedRoles = ["user", "agent"];
+  const allowedRoles = ["user", "agent","admin"];
   if (!allowedRoles.includes(role)) {
     throw new AppError(httpStatus.BAD_REQUEST,"Invalid Roles");
   }
