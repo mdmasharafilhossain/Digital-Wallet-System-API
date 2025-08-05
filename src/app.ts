@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -29,6 +29,10 @@ app.use("/api/v1/wallet", walletRouter);
 app.use("/api/v1/transactions", transactionRouter);
 app.use("/api/v1/admin", adminRouter);
 
+
+app.get('/', (req: Request, res: Response) => {
+    res.send('Welcome to Wallet Management Website');
+});
 // Error handling
 app.use(errorHandler);
 
