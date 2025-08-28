@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../utils/appError";
@@ -34,7 +35,7 @@ export const login = async (
     
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
       maxAge: 90 * 24 * 60 * 60 * 1000 
     });
     
@@ -44,5 +45,26 @@ export const login = async (
     });
   } catch (err: any) {
     next(new AppError(401, err.message));
+  }
+};
+
+
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: true,
+    });
+
+    res.status(200).json({
+      status: "success",
+      message: "Logged out successfully",
+    });
+  } catch (err: any) {
+    next(new AppError(500, "Logout failed"));
   }
 };
