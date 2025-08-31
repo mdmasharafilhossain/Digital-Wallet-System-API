@@ -68,3 +68,29 @@ export const logout = async (
     next(new AppError(500, "Logout failed"));
   }
 };
+
+export const getProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return next(new AppError(401, "Not authenticated"));
+    }
+
+    const user = await authService.getUserFromToken(token); // custom function
+    if (!user) {
+      return next(new AppError(404, "User not found"));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: user,
+    });
+  } catch (err: any) {
+    next(new AppError(500, err.message || "Could not fetch profile"));
+  }
+};
+

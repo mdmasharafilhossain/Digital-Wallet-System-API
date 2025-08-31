@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import jwt, { SignOptions } from "jsonwebtoken";
@@ -53,4 +55,17 @@ export const loginUser = async ({ phone, password }: LoginInput) => {
   } as SignOptions);
 
   return { user, token };
+};
+
+
+
+export const getUserFromToken = async (token: string) => {
+  try {
+    const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { id: string };
+    const user = await User.findById(decoded.id).select("-password"); // exclude password
+    return user;
+  } catch (err:any) {
+    console.error(err)
+    return null;
+  }
 };

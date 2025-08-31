@@ -9,5 +9,6 @@ router.use(cookieParser());
 
 router.post("/register",validate(registerSchema), authController.register);
 router.post("/login", validate(loginSchema), authController.login);
+router.get("/profile", authController.getProfile);
 
 export default router;
