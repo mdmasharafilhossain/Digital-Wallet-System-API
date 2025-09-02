@@ -62,7 +62,7 @@ export const loginUser = async ({ phone, password }: LoginInput) => {
 export const getUserFromToken = async (token: string) => {
   try {
     const decoded = jwt.verify(token, envVars.JWT_ACCESS_SECRET) as { id: string };
-    const user = await User.findById(decoded.id).select("-password"); // exclude password
+    const user = await User.findById(decoded.id).select("-password"); 
     return user;
   } catch (err:any) {
     console.error(err)

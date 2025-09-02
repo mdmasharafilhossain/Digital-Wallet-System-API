@@ -80,7 +80,7 @@ export const getProfile = async (
       return next(new AppError(401, "Not authenticated"));
     }
 
-    const user = await authService.getUserFromToken(token); // custom function
+    const user = await authService.getUserFromToken(token);
     if (!user) {
       return next(new AppError(404, "User not found"));
     }
