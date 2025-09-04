@@ -40,6 +40,9 @@ export interface LoginInput {
         .string()
         .min(6)
         .max(100)
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/)
+        .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+      "Password must include uppercase, lowercase, number, and special character"
+    )
         .optional(),
     });
