@@ -3,7 +3,7 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../utils/appError";
 import * as authService from "./auth.service";
-import { loginSchema, registerSchema } from "./auth.schema";
+import { loginSchema, registerSchema, updateSchema } from "./auth.schema";
 
 
 export const register = async (
@@ -93,4 +93,26 @@ export const getProfile = async (
     next(new AppError(500, err.message || "Could not fetch profile"));
   }
 };
+
+
+
+
+
+export const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+   
+
+    const input = updateSchema.parse(req.body);
+
+    const updatedUser = await authService.updateUserProfile(req.user._id, input);
+
+    res.status(200).json({
+      status: "success",
+      data: { user: updatedUser },
+    });
+  } catch (err: any) {
+    next(new AppError(400, err.message));
+  }
+};
+
 

@@ -3,7 +3,7 @@
 
 
 import jwt, { SignOptions } from "jsonwebtoken";
-
+import bcrypt from "bcryptjs";
 import { User } from "../user/user.model";
 import { Wallet } from "../wallet/wallet.model";
 import { LoginInput, RegisterInput } from "./auth.schema";
@@ -68,4 +68,23 @@ export const getUserFromToken = async (token: string) => {
     console.error(err)
     return null;
   }
+};
+export const updateUserProfile = async (
+  userId: string,
+  updateData: { name?: string; phone?: string; password?: string }
+) => {
+  const user = await User.findById(userId).select("+password");
+  if (!user) throw new Error("User not found");
+
+  if (updateData.name) user.name = updateData.name;
+  if (updateData.phone) user.phone = updateData.phone;
+
+  if (updateData.password) {
+    const salt = await bcrypt.genSalt(Number(envVars.BCRYPT_SALT_ROUND));
+    user.password = await bcrypt.hash(updateData.password, salt);
+  }
+
+  await user.save();
+
+  return user;
 };
