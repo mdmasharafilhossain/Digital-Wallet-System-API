@@ -32,3 +32,17 @@ export interface LoginInput {
   phone: string;
   password: string;
 };
+
+ export const updateSchema = z.object({
+      name: z.string().min(1).max(50).optional(),
+      phone: z.string().regex(/^01[3-9]\d{8}$/).optional(),
+      password: z
+        .string()
+        .min(6)
+        .max(100)
+        .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/,
+      "Password must include uppercase, lowercase, number, and special character"
+    )
+        .optional(),
+    });
