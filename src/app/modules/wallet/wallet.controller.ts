@@ -18,6 +18,7 @@ export const addMoney = async (
     
     res.status(200).json({
       status: "success",
+       message: "Money Added successfully",
       data: { wallet }
     });
   } catch (err: any) {
