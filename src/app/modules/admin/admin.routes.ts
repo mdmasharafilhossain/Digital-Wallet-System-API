@@ -12,5 +12,6 @@ router.get("/agents", adminController.getAllAgents);
 router.get("/wallets", adminController.getAllWallets);
 router.patch("/wallets/:id/block", adminController.toggleWalletBlock);
 router.patch("/agents/:id/approve", adminController.toggleAgentApproval);
+router.patch("/users/:id/block", adminController.toggleUserBlock);
 
 export default router;
