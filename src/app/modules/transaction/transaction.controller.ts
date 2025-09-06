@@ -53,39 +53,36 @@ export const getAllTransactions = async (
   next: NextFunction
 ) => {
   try {
-    const {
-      page = 1,
-      limit = 10,
-      type,
-      startDate,
-      endDate,
-    } = req.query;
+    const { page = "1", limit = "10", type, startDate, endDate } = req.query;
 
+    const pageNumber = parseInt(page as string);
+    const limitNumber = parseInt(limit as string);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Build filter object
     const filter: any = {};
     if (type) filter.type = type;
-
     if (startDate || endDate) {
       filter.createdAt = {};
       if (startDate) filter.createdAt.$gte = new Date(startDate as string);
       if (endDate) filter.createdAt.$lte = new Date(endDate as string);
     }
 
-    const skip = (Number(page) - 1) * Number(limit);
-
+    // Fetch transactions and total count
     const [transactions, total] = await Promise.all([
       Transaction.find(filter)
         .sort({ createdAt: -1 })
         .skip(skip)
-        .limit(Number(limit)),
+        .limit(limitNumber),
       Transaction.countDocuments(filter),
     ]);
 
     res.status(200).json({
       status: "success",
-      page: Number(page),
-      limit: Number(limit),
+      page: pageNumber,
+      limit: limitNumber,
       total,
-      totalPages: Math.ceil(total / Number(limit)),
+      totalPages: Math.ceil(total / limitNumber),
       results: transactions.length,
       data: { transactions },
     });

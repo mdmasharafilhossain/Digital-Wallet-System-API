@@ -47,16 +47,10 @@ export const getAllAgents = async (
     const agents = await User.find({ role: "agent" }).skip(skip).limit(limit);
     const total = await User.countDocuments({ role: "agent" });
 
-    res.status(200).json({
+     res.status(200).json({
       status: "success",
-      results: agents.length,
-      pagination: {
-        total,
-        page,
-        limit,
-        totalPages: Math.ceil(total / limit),
-      },
-      data: { agents },
+      results: total,
+      data: { agents }
     });
   } catch (err: any) {
     next(new AppError(500, "Failed to get agents"));
