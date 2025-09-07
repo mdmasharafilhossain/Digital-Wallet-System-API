@@ -122,26 +122,21 @@ export const cashOut = async (
 ) => {
   const session = await mongoose.startSession();
   session.startTransaction();
-
+  
   try {
     const commission = amount * COMMISSION_RATE;
-    const totalDeduct = amount + commission;
-
-    // Step 1: Deduct from user
-    await updateBalance(userId, -totalDeduct, session);
-
-    // Step 2: Add amount (not commission) to agent
-    await updateBalance(agentId, amount, session);
-
-    // Step 3: Record transaction
+    const netAmount = amount + commission;
+    
+    await updateBalance(userId, -netAmount, session);
+    
     await Transaction.create([{
       type: "cash-out",
-      amount,
+      amount: netAmount,
       commission,
       from: userId,
       to: agentId
     }], { session });
-
+    
     await session.commitTransaction();
   } catch (err) {
     await session.abortTransaction();
@@ -150,7 +145,6 @@ export const cashOut = async (
     session.endSession();
   }
 };
-
 
 
 export const withdrawMoney = async (
