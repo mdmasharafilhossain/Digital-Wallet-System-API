@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppError } from "../../utils/appError";
 import * as authService from "./auth.service";
 import { loginSchema, registerSchema, updateSchema } from "./auth.schema";
+import { envVars } from "../../config/env";
 
 
 export const register = async (
@@ -35,7 +36,8 @@ export const login = async (
     
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: envVars.NODE_ENV === 'production',
+      domain:envVars.NODE_ENV === 'production' ? 'https://digital-wallet-client-beta.vercel.app/' : 'localhost',
       maxAge: 90 * 24 * 60 * 60 * 1000 
     });
     
