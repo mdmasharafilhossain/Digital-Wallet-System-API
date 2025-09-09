@@ -1,8 +1,8 @@
-# 💰 Digital Wallet API
+# 💰 Amar Wallet API
 
 ## Project Overview
 
-The **Digital Wallet API** is a secure, modular, and role-based backend system for a digital wallet service similar to **Bkash** or **Nagad**. Built with **Express.js**, **TypeScript**, and **Mongoose**, this API allows users to register, manage wallets, and perform core financial operations including deposits, withdrawals, transfers, and transaction history with robust security measures.
+The **Amar Wallet API** is a secure, modular, and role-based backend system for a digital wallet service similar to **Bkash** or **Nagad**. Built with **Express.js**, **TypeScript**, and **Mongoose**, this API allows users to register, manage wallets, and perform core financial operations including deposits, withdrawals, transfers, and transaction history with robust security measures.
 
 ---
 
