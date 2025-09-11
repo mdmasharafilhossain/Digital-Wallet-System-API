@@ -15,7 +15,8 @@ import transactionRouter from "./app/modules/transaction/transaction.routes";
 // Middlewares
 app.use(
   cors({
-    origin: ['http://localhost:5173','https://wallet-management-system-server.vercel.app/', 'https://digital-wallet-client-beta.vercel.app/', 'https://wallet-management-system-server.vercel.app'],
+    // origin: 'http://localhost:5173',
+    origin: 'https://digital-wallet-client-beta.vercel.app',
      credentials: true,
    })
 );

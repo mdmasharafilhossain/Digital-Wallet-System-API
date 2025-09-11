@@ -36,9 +36,11 @@ export const login = async (
     
     res.cookie("token", token, {
       httpOnly: true,
-      secure: envVars.NODE_ENV === 'production',
-      domain:envVars.NODE_ENV === 'production' ? 'https://digital-wallet-client-beta.vercel.app/' : 'localhost',
-      maxAge: 90 * 24 * 60 * 60 * 1000 
+      secure: true,
+      sameSite:"none",
+      
+      // domain: "wallet-management-system-server.vercel.app",
+      // domain: "http://localhost:5000",
     });
     
     res.status(200).json({
